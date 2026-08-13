@@ -21,3 +21,15 @@ target_link_libraries(io_context PRIVATE Boost::boost ws2_32 mswsock)
 # executor
 add_executable(executor src/asio/02_executor/main.cpp)
 target_link_libraries(executor PRIVATE Boost::boost ws2_32 mswsock)
+
+# post
+add_executable(post src/asio/03_post/main.cpp)
+target_link_libraries(post PRIVATE Boost::boost ws2_32 mswsock)
+
+# work_guard
+add_executable(work_guard src/asio/04_work_guard/main.cpp)
+target_link_libraries(work_guard PRIVATE Boost::boost ws2_32 mswsock)
+
+# thread_pool
+add_executable(thread_pool src/asio/05_thread_pool/main.cpp)
+target_link_libraries(thread_pool PRIVATE Boost::boost ws2_32 mswsock)
