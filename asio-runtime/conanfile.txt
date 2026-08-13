@@ -1,0 +1,11 @@
+[requires]
+boost/1.89.0
+
+# Disable Boost.Stacktrace entirely.
+# Reason: the 'windbg' backend of Stacktrace needs MSVC's
+[options]
+boost/*:without_stacktrace=True
+
+[generators]
+CMakeDeps
+CMakeToolchain

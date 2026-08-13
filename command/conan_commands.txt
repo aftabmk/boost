@@ -1,0 +1,18 @@
+build	
+	[profile] : conan profile detect
+	[install] : conan install . --output-folder=build --build=missing
+	[verbose] : conan install . --output-folder=build --build=missing -vv
+remove 
+	[package] : conan remove {package} /*
+	[all] : conan remove "*" -c
+	[cache]   : conan cache clean "*" --source --build --download
+	[build folder] : conan remove {package}/* --builds
+
+fresh (powershell only)
+	[remove all] : Remove-Item -Recurse -Force $env:USERPROFILE\.conan2\p
+query
+	[version] :conan search <package_name>
+
+
+windows spec
+[enable long path] : New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
