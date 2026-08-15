@@ -2,38 +2,40 @@
 
 #include <iostream>
 #include <thread>
-#include <chrono>
+#include <vector>
 
 int main()
 {
-    // Create the execution context that manages and dispatches asynchronous work.
+    // Creates the execution context shared by all worker threads.
     boost::asio::io_context io;
 
-    // Create a work guard so io.run() remains active even when the queue is temporarily empty.
+    // Creates a work guard so io.run() stays alive even when the queue is temporarily empty.
     auto work_guard = boost::asio::make_work_guard(io);
 
-    // Start a worker thread that continuously processes work from the io_context.
-    std::thread worker([&io] {
-        // run() normally returns when no work remains; the work guard prevents that.
-        io.run();
-    });
+    // Schedules work that can be processed by any worker thread.
+    for (int i = 0; i < 8; ++i)
+    {
+        boost::asio::post(io, [i] {
+            std::cout << "Task " << i
+                      << " executed on thread "
+                      << std::this_thread::get_id()
+                      << '\n';
+        });
+    }
 
-    // Give the worker time to enter io.run() and wait for work.
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    // Starts multiple threads that concurrently process work from the same io_context.
+    std::vector<std::jthread> workers;
 
-    // Submit work after the worker is already waiting inside io.run().
-    boost::asio::post(io, [] {
-        std::cout << "Task executed\n";
-    });
+    for (int i = 0; i < 4; ++i)
+    {
+        workers.emplace_back([&io] {
+            // Each thread enters the Asio event loop and processes available handlers.
+            io.run();
+        });
+    }
 
-    // Allow the queued work to be processed before shutting down.
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-    // Remove the artificial work that keeps io.run() alive.
+    // Releases the work guard so run() can finish after all queued work is processed.
     work_guard.reset();
-
-    // Wait for io.run() to finish after all queued work has been processed.
-    worker.join();
 
     return 0;
 }

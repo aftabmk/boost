@@ -2,17 +2,17 @@
 
 #include <iostream>
 #include <thread>
-#include <vector>
 
 int main()
 {
-    // Creates the Asio execution context that owns and dispatches asynchronous work.
-    boost::asio::io_context io;
+    // Creates a thread pool with four worker threads managed by Asio.
+    boost::asio::thread_pool pool(4);
 
-    // Schedules multiple independent tasks into the io_context.
+    // Submits eight independent tasks to the thread pool.
     for (int i = 0; i < 8; ++i)
     {
-        boost::asio::post(io, [i] {
+        boost::asio::post(pool, [i] {
+            // The task executes on one of the pool's worker threads.
             std::cout << "Task " << i
                       << " executed on thread "
                       << std::this_thread::get_id()
@@ -20,17 +20,8 @@ int main()
         });
     }
 
-    // Creates multiple worker threads that concurrently process the same io_context.
-    std::vector<std::jthread> workers;
+    // Waits for all submitted tasks to finish before continuing.
+    pool.join();
 
-    for (int i = 0; i < 4; ++i)
-    {
-        workers.emplace_back([&io] {
-            // Each worker calls run(); Asio distributes ready handlers among these threads.
-            io.run();
-        });
-    }
-
-    // jthread automatically joins all worker threads when the vector is destroyed.
     return 0;
 }
