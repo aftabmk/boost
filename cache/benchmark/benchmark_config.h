@@ -13,10 +13,10 @@ struct Config {
     int read_ratio_pct = 95;
     
     // Payload sizes to test
-    std::vector<size_t> payload_sizes = {8, 64, 512, 4096};
+    std::vector<size_t> payload_sizes = {8, 64, 512, 4096, 256000};
     
     // Memory pool size in MB
-    size_t memory_mb = 64;
+    size_t memory_mb = 512;
     
     // Cache configuration
     static constexpr size_t kStages = 16;
