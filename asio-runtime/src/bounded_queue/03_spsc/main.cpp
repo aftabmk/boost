@@ -8,7 +8,7 @@ using Queue = boost::lockfree::spsc_queue<int,boost::lockfree::capacity<8>>;
 Queue queue;
 
 void producer() {
-    for (int i = 0; i < 100; ++i) {
+    for (int i = 0; i < 50; ++i) {
         // Keep trying until the consumer frees a slot.
         while (!queue.push(i)) {
             std::this_thread::yield();
@@ -19,7 +19,7 @@ void producer() {
 void consumer() {
     int value;
 
-    for (int count = 0; count < 100; ) {
+    for (int count = 0; count < 50; ) {
         if (queue.pop(value)) {
             std::cout << "received: "<< value << '\n';
 

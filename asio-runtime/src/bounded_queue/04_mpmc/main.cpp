@@ -12,7 +12,7 @@ std::atomic<int> produced{0};
 std::atomic<int> consumed{0};
 
 constexpr int producer_count = 3;
-constexpr int items_per_producer = 100;
+constexpr int items_per_producer = 30;
 constexpr int total_items = producer_count * items_per_producer;
 
 void producer(int id) {

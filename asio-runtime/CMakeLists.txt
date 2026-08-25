@@ -170,20 +170,25 @@ add_app_executable(coroutine_concurrency    asio        src/asio/14_coroutine_co
 # ==============================================================================
 # LOCKFREE APPLICATIONS
 # ==============================================================================
+
  add_app_executable(spsc_queue              lockfree    src/lockfree/01_spsc_queue/main.cpp)
  add_app_executable(mpmc_queue              lockfree    src/lockfree/02_mpmc_queue/main.cpp)
  add_app_executable(stack                   lockfree    src/lockfree/03_stack/main.cpp)
+
 # ==============================================================================
 # MEMORY ORDER APPLICATIONS
 # ==============================================================================
+
  add_app_executable(relaxed                 memory_order    src/memory_order/01_relaxed/main.cpp)
  add_app_executable(release                 memory_order    src/memory_order/02_release_acquire/main.cpp)
  add_app_executable(compare_swap            memory_order    src/memory_order/03_cas/main.cpp)
  add_app_executable(compare_swap_loop       memory_order    src/memory_order/04_cas_loop/main.cpp)
  add_app_executable(acquire_release         memory_order    src/memory_order/05_acq_rel/main.cpp)
+
 # ==============================================================================
 # BOUNDED QUEUE APPLICATIONS
 # ==============================================================================
+
  add_app_executable(basic                   bounded_queue    src/bounded_queue/01_basic/main.cpp)
  add_app_executable(queue                   bounded_queue    src/bounded_queue/02_full_queue/main.cpp)
  add_app_executable(spsc                    bounded_queue    src/bounded_queue/03_spsc/main.cpp)
@@ -192,24 +197,36 @@ add_app_executable(coroutine_concurrency    asio        src/asio/14_coroutine_co
 # ==============================================================================
 # QUEUE BENCHMARK APPLICATIONS
 # ==============================================================================
+
  add_app_executable(spsc_bench              queue_benchmark    src/queue_benchmark/01_spsc/main.cpp)
  add_app_executable(mpmc_bench              queue_benchmark    src/queue_benchmark/02_mpmc/main.cpp)
  add_app_executable(mutux_bench             queue_benchmark    src/queue_benchmark/03_mutux/main.cpp)
+
 # ==============================================================================
 # CONTAINER APPLICATIONS
 # ==============================================================================
+
+
 # ==============================================================================
 # GRAPH APPLICATIONS
 # ==============================================================================
+
+
 # ==============================================================================
 # INTERPROCESS APPLICATIONS
 # ==============================================================================
+
+
 # ==============================================================================
 # JSON APPLICATIONS
 # ==============================================================================
+
+
 # ==============================================================================
 # LOG APPLICATIONS
 # ==============================================================================
+
+
 # ==============================================================================
 # POOL APPLICATIONS
 # ==============================================================================
