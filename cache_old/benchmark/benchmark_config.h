@@ -8,7 +8,7 @@ namespace bench {
 
 // Default configuration
 struct Config {
-    size_t num_ops = 20;
+    size_t num_ops = 1000;
     unsigned num_threads = 0;  // 0 = auto-detect
     int read_ratio_pct = 95;
     
